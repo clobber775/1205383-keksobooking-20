@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Виталий Бреев](https://up.htmlacademy.ru/javascript/20/user/1205383).
-* Наставник: Руслан Бреев.
+* Наставник: [Руслан Бреев](https://htmlacademy.ru/profile/id488939)
 
 ---
 
