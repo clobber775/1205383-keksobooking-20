@@ -34,18 +34,22 @@ var width = document.querySelector('.map').offsetWidth;
 
 var createObject = function (array) {
   for (var i = FIRST_OBJECT; i < NUMBER_OF_OBJECTS; i++) {
+    var point = {
+      x: getRandomNumberInRange(PIN_POS_X_START, width),
+      y: getRandomNumberInRange(PIN_POS_Y_START, PIN_POS_Y_END),
+    };
     array[i] =
       {
         author: {
           avatar: 'img/avatars/user0' + getRandomNumberInRange(FIRST_AVATAR, LAST_AVATAR) + '.png'
         },
         location: {
-          x: getRandomNumberInRange(PIN_POS_X_START, width),
-          y: getRandomNumberInRange(PIN_POS_Y_START, PIN_POS_Y_END),
+          x: point.x,
+          y: point.y,
         },
         offer: {
           title: 'Объявление',
-          address: location.x + ',' + location.y,
+          address: point.x + ',' + point.y,
           price: 100,
           type: TYPES[getRandomNumberInRange(FIRST_OBJECT, TYPES.length - 1)],
           rooms: 3,
@@ -53,6 +57,7 @@ var createObject = function (array) {
           checkin: CHECKINS[[getRandomNumberInRange(FIRST_OBJECT, CHECKINS.length - 1)]],
           checkout: CHECKINS[[getRandomNumberInRange(FIRST_OBJECT, CHECKINS.length - 1)]],
           features: getRandomArrayLength(FEAUTERS),
+          description: 'описание',
           photos: getRandomArrayLength(PHOTOS),
         }
       };
@@ -69,6 +74,10 @@ var pinTemplate = document.querySelector('#pin')
   .content
   .querySelector('.map__pin');
 
+var cardTemplate = document.querySelector('#card')
+  .content
+  .querySelector('.map__card');
+
 var renderPins = function (obj) {
   var newpinsElement = pinTemplate.cloneNode(true);
   newpinsElement.querySelector('img').src = obj[i].author.avatar;
@@ -77,8 +86,62 @@ var renderPins = function (obj) {
   return newpinsElement;
 };
 
+var renderCard = function (obj) {
+  var newCardElement = cardTemplate.cloneNode(true);
+  newCardElement.querySelector('.popup__title').textContent = obj[0].offer.title;
+  newCardElement.querySelector('.popup__text--address').textContent = obj[0].offer.address;
+  newCardElement.querySelector('.popup__text--price').textContent = obj[0].offer.price + '₽/ночь';
+  if (obj[0].offer.type === 'place') {
+    newCardElement.querySelector('.popup__type').textContent = 'Дворец';
+  } else {
+    if (obj[0].offer.type === 'bungalo') {
+      newCardElement.querySelector('.popup__type').textContent = 'Бунгало';
+    }
+    if (obj[0].offer.type === 'house') {
+      newCardElement.querySelector('.popup__type').textContent = 'Дом';
+    }
+    if (obj[0].offer.type === 'flat') {
+      newCardElement.querySelector('.popup__type').textContent = 'Квартира';
+    }
+  }
+  newCardElement.querySelector('.popup__text--capacity').textContent = obj[0].offer.rooms + ' комнаты для ' + obj[0].offer.guests + ' гостей';
+  newCardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + obj[0].offer.checkin + ', выезд до ' + obj[0].offer.checkout;
+  newCardElement.querySelector('.popup__description').textContent = obj[0].offer.description;
+  newCardElement.querySelector('.popup__features').textContent = obj[0].offer.features;
+  newCardElement.querySelector('.popup__avatar').src = obj[0].author.avatar;
+  return newCardElement;
+};
+
 var fragment = document.createDocumentFragment();
 for (var i = FIRST_OBJECT; i < NUMBER_OF_OBJECTS; i++) {
   fragment.appendChild(renderPins(createObject([])));
 }
 pinElement.appendChild(fragment);
+
+var fragmentCard = document.createDocumentFragment();
+fragmentCard.appendChild(renderCard(createObject([])));
+
+mapElement.appendChild(fragmentCard);
+
+var photoElement = document.querySelector('.popup__photos');
+
+var photoArray = (createObject([]))[0].offer.photos;
+
+var photoTemplate = document.querySelector('#card')
+  .content
+  .querySelector('.popup__photo');
+
+var renderPhotos = function (obj) {
+  var newPhotoElement = photoTemplate.cloneNode(true);
+  newPhotoElement.src = obj[k];
+  return newPhotoElement;
+};
+
+var fragmentPhoto = document.createDocumentFragment();
+for (var k = FIRST_OBJECT; k < photoArray.length; k++) {
+  fragmentPhoto.appendChild(renderPhotos(photoArray));
+}
+
+photoElement.appendChild(fragmentPhoto);
+
+
