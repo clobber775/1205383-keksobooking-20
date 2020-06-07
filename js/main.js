@@ -137,6 +137,10 @@ var renderPhotos = function (obj) {
   return newPhotoElement;
 };
 
+var img = document.querySelector('.popup__photo');
+photoElement.removeChild(img);
+
+
 var fragmentPhoto = document.createDocumentFragment();
 for (var k = FIRST_OBJECT; k < photoArray.length; k++) {
   fragmentPhoto.appendChild(renderPhotos(photoArray));
