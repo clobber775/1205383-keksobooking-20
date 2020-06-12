@@ -90,11 +90,9 @@ var mapElement = document.querySelector('.map');
 // mapElement.classList.remove('map--faded');
 
 /* var pinElement = document.querySelector('.map__pins');
-
 var pinTemplate = document.querySelector('#pin')
   .content
   .querySelector('.map__pin');
-
 var cardObject = newObject[0];
  var renderPins = function (obj) {
   var newpinsElement = pinTemplate.cloneNode(true);
@@ -103,35 +101,25 @@ var cardObject = newObject[0];
   newpinsElement.style = 'left:' + (obj[i].location.x - 20) + 'px; top:' + (obj[i].location.y - 20) + 'px;';
   return newpinsElement;
 };
-
 var fragment = document.createDocumentFragment();
 for (var i = FIRST_OBJECT; i < NUMBER_OF_OBJECTS; i++) {
   fragment.appendChild(renderPins(createObject([])));
 }
 pinElement.appendChild(fragment);
-
 var cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.map__card');
-
 var newCardElement = cardTemplate.cloneNode(true);
-
 var fragmentCard = document.createDocumentFragment();
 fragmentCard.appendChild(newCardElement);
 mapElement.appendChild(fragmentCard);
-
 var photoElement = document.querySelector('.popup__photos');
-
 var photoArray = cardObject.offer.photos;
-
 var photoTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup__photo');
-
 photoElement.innerHTML = '';
-
 var fragmentPhoto = document.createDocumentFragment();
-
 var renderCard = function (obj) {
   newCardElement.querySelector('.popup__title').textContent = obj.offer.title;
   newCardElement.querySelector('.popup__text--address').textContent = obj.offer.address;
@@ -149,7 +137,6 @@ var renderCard = function (obj) {
   }
   photoElement.appendChild(fragmentPhoto);
 };
-
 renderCard(cardObject);
 */
 var formElement = document.querySelector('.ad-form');
@@ -223,5 +210,3 @@ var validateRoomsGuests = function () {
 
 roomsSelect.addEventListener('change', validateRoomsGuests);
 capacitySelect.addEventListener('change', validateRoomsGuests);
-
-
