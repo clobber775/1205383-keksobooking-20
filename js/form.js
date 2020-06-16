@@ -1,11 +1,5 @@
 'use strict';
 (function () {
-
-
-  var MAIN_PIN_WIDTH = 40;
-  var MAIN_PIN_HEIGHT = 44;
-
-
   var GUESTS = {
     'for 1 guest': '1',
     'for 2 guests': '2',
@@ -18,12 +12,14 @@
     '3 rooms': '3',
     '100 rooms': '100'
   };
-  var addressFieldElement = document.querySelector('#address');
-  window.fillAddress = function () {
-    addressFieldElement.value = (window.mainPinElement.getBoundingClientRect().x + MAIN_PIN_WIDTH / 2) + ',' + (window.mainPinElement.getBoundingClientRect().y + MAIN_PIN_HEIGHT);
-  };
 
-  window.fillAddress();
+  var formElement = document.querySelector('.ad-form');
+
+  var fieldsetElements = formElement.querySelectorAll('fieldset');
+
+  for (var i = 0; i < fieldsetElements.length; i++) {
+    fieldsetElements[i].disabled = true;
+  }
   var roomsSelect = document.querySelector('#room_number');
   var capacitySelect = document.querySelector('#capacity');
 
@@ -77,5 +73,9 @@
   document.querySelector('.ad-form').onchange = function (evt) {
     this.timein.value = evt.target.value;
     this.timeout.value = evt.target.value;
+  };
+  window.form = {
+    fieldsetElements: fieldsetElements,
+    formElement: formElement
   };
 })();

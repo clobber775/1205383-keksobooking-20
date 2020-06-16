@@ -11,57 +11,42 @@
   var PIN_POS_Y_START = 130;
   var PIN_POS_Y_END = 630;
   var PIN_POS_X_START = 0;
-  window.getRandomNumberInRange = function (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
 
-  window.shuffleArray = function (array) {
-    for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-  };
-
-  window.getRandomArrayLength = function (array) {
-    window.shuffleArray(array);
-    return array.slice([window.getRandomNumberInRange(FIRST_OBJECT, array.length + 1)]);
-  };
-
-  var width = document.querySelector('.map').offsetWidth;
-
-  window.createArray = function (array) {
-    for (var i = FIRST_OBJECT; i < NUMBER_OF_OBJECTS; i++) {
-      var point = {
-        x: window.getRandomNumberInRange(PIN_POS_X_START, width),
-        y: window.getRandomNumberInRange(PIN_POS_Y_START, PIN_POS_Y_END),
-      };
-      array[i] =
-        {
-          author: {
-            avatar: 'img/avatars/user0' + window.getRandomNumberInRange(FIRST_AVATAR, LAST_AVATAR) + '.png'
-          },
-          location: {
-            x: point.x,
-            y: point.y,
-          },
-          offer: {
-            title: 'Объявление',
-            address: point.x + ',' + point.y,
-            price: 100,
-            type: TYPES[window.getRandomNumberInRange(FIRST_OBJECT, TYPES.length - 1)],
-            rooms: 3,
-            guests: 456,
-            checkin: CHECKINS[[window.getRandomNumberInRange(FIRST_OBJECT, CHECKINS.length - 1)]],
-            checkout: CHECKINS[[window.getRandomNumberInRange(FIRST_OBJECT, CHECKINS.length - 1)]],
-            features: window.getRandomArrayLength(FEAUTERS),
-            description: 'описание',
-            photos: window.getRandomArrayLength(PHOTOS),
-          }
+  var mapWidth = document.querySelector('.map').offsetWidth;
+  window.data = {
+    createArray: function (array) {
+      for (var i = FIRST_OBJECT; i < NUMBER_OF_OBJECTS; i++) {
+        var point = {
+          x: window.util.getRandomNumberInRange(PIN_POS_X_START, mapWidth),
+          y: window.util.getRandomNumberInRange(PIN_POS_Y_START, PIN_POS_Y_END),
         };
-    }
-    return array;
+        array[i] =
+          {
+            author: {
+              avatar: 'img/avatars/user0' + window.util.getRandomNumberInRange(FIRST_AVATAR, LAST_AVATAR) + '.png'
+            },
+            location: {
+              x: point.x,
+              y: point.y,
+            },
+            offer: {
+              title: 'Объявление',
+              address: point.x + ',' + point.y,
+              price: 100,
+              type: TYPES[window.util.getRandomNumberInRange(FIRST_OBJECT, TYPES.length - 1)],
+              rooms: 3,
+              guests: 456,
+              checkin: CHECKINS[[window.util.getRandomNumberInRange(FIRST_OBJECT, CHECKINS.length - 1)]],
+              checkout: CHECKINS[[window.util.getRandomNumberInRange(FIRST_OBJECT, CHECKINS.length - 1)]],
+              features: window.util.getRandomArrayLength(FEAUTERS),
+              description: 'описание',
+              photos: window.util.getRandomArrayLength(PHOTOS),
+            }
+          };
+      }
+      return array;
+    },
+    FIRST_OBJECT: FIRST_OBJECT,
+    mapWidth: mapWidth
   };
-  window.FIRST_OBJECT = FIRST_OBJECT;
 })();

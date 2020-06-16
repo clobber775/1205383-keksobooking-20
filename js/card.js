@@ -16,7 +16,7 @@
 
 
     if (!isCardOpened) {
-      window.mapElement.appendChild(cardElement);
+      window.map.mapElement.appendChild(cardElement);
     }
     var photoElement = document.querySelector('.popup__photos');
     var photoArray = obj.offer.photos;
@@ -37,7 +37,7 @@
     cardElement.querySelector('.popup__description').textContent = obj.offer.description;
     cardElement.querySelector('.popup__features').textContent = obj.offer.features;
     cardElement.querySelector('.popup__avatar').src = obj.author.avatar;
-    for (var k = window.FIRST_OBJECT; k < photoArray.length; k++) {
+    for (var k = window.data.FIRST_OBJECT; k < photoArray.length; k++) {
       var newPhotoElement = photoTemplate.cloneNode(true);
       newPhotoElement.src = photoArray[k];
       fragmentPhoto.appendChild(newPhotoElement);
@@ -49,7 +49,7 @@
       var mapCardElement = document.querySelector('.map__card');
       mapCardElement.parentNode.removeChild(mapCardElement);
     });
-    window.mapElement.addEventListener('keydown', function (evt) {
+    window.map.mapElement.addEventListener('keydown', function (evt) {
       if (evt.key === 'Escape') {
         var mapCardElement = document.querySelector('.map__card');
         mapCardElement.parentNode.removeChild(mapCardElement);
