@@ -8,7 +8,7 @@
         window.form.fieldsetElements[j].removeAttribute('disabled');
         window.map.mapElement.classList.remove('map--faded');
       }
-      window.map.renderPins(window.main.offersData);
+      window.backend.loadData(window.map.renderPins);
     },
     renderPins: function (data) {
       data.forEach(function (it) {
