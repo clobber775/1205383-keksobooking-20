@@ -17,8 +17,6 @@
       mainPinElement.removeEventListener('mouseup', mainPinHandler);
     }
   };
-
-
   mainPinElement.addEventListener('mouseup', mainPinHandler);
 
   var mainPinButtonHandler = function (evt) {
@@ -63,14 +61,14 @@
         x: moveEvt.clientX,
         y: moveEvt.clientY
       };
-      if (moveEvt.pageX > limits.right) {
+      if (moveEvt.pageX >= limits.right) {
         mainPinElement.style.left = window.map.mapElement.offsetWidth - MAIN_PIN_WIDTH / 2 + 'px';
-      } else if (moveEvt.pageX < limits.left) {
+      } else if (moveEvt.pageX <= limits.left) {
         mainPinElement.style.left = limits.top - MAIN_PIN_WIDTH / 2 + 'px';
       }
-      if (moveEvt.pageY > limits.bottom) {
+      if (moveEvt.pageY >= limits.bottom) {
         mainPinElement.style.top = limits.bottom - MAIN_PIN_WIDTH - TAIL_HEIGHT + 'px';
-      } else if (moveEvt.pageY < limits.top) {
+      } else if (moveEvt.pageY <= limits.top) {
         mainPinElement.style.top = limits.top + 'px';
       }
       mainPinElement.style.top = (mainPinElement.offsetTop - shift.y) + 'px';
