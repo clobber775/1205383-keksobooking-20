@@ -14,7 +14,6 @@
       window.map.activateSite();
       fillAddress(MAIN_PIN_WIDTH / 2, MAIN_PIN_HEIGHT + TAIL_HEIGHT);
       window.form.formElement.classList.remove('ad-form--disabled');
-      mainPinElement.removeEventListener('mouseup', mainPinHandler);
     }
   };
   mainPinElement.addEventListener('mouseup', mainPinHandler);
@@ -24,7 +23,6 @@
       window.map.activateSite();
       fillAddress(MAIN_PIN_WIDTH / 2, MAIN_PIN_HEIGHT + TAIL_HEIGHT);
       window.form.formElement.classList.remove('ad-form--disabled');
-      mainPinElement.removeEventListener('keydown', mainPinHandler);
     }
   };
 
