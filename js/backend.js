@@ -5,6 +5,7 @@
   var StatusCode = {
     OK: 200
   };
+  var TIMEOUT_IN_MS = 10000;
   window.backend = {
     loadData: function (onSuccess) {
       var xhr = new XMLHttpRequest();
@@ -33,6 +34,10 @@
       xhr.addEventListener('error', function () {
         onError('Произошла ошибка соединения');
       });
+      xhr.addEventListener('timeout', function () {
+        onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      });
+      xhr.timeout = TIMEOUT_IN_MS;
       xhr.open('POST', URL_SAVE);
       xhr.send(data);
     }

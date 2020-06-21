@@ -17,10 +17,12 @@
   var formElement = document.querySelector('.ad-form');
 
   var fieldsetElements = formElement.querySelectorAll('fieldset');
-
-
   var roomsSelect = document.querySelector('#room_number');
   var capacitySelect = document.querySelector('#capacity');
+  for (var j = 0; j < fieldsetElements.length; j++) {
+    fieldsetElements[j].setAttribute('disabled', true);
+  }
+
 
   var validateRoomsGuests = function () {
     roomsSelect.setCustomValidity('');
@@ -73,7 +75,7 @@
     this.timein.value = evt.target.value;
     this.timeout.value = evt.target.value;
   };
-  var formTemplate = document.querySelector('#success')
+  var successTemplate = document.querySelector('#success')
     .content
     .querySelector('.success');
   var errorTemplate = document.querySelector('#error')
@@ -81,54 +83,40 @@
     .querySelector('.error');
   var mainElement = document.querySelector('main');
 
-  var succesClickHandler = function () {
-    var succesElement = document.querySelector('.success');
-    succesElement.parentNode.removeChild(succesElement);
-    document.removeEventListener('click', succesClickHandler);
-    document.removeEventListener('keydown', succesButtonHandler);
+  var closeSuccess = function () {
+    var successElement = document.querySelector('.success');
+    successElement.parentNode.removeChild(successElement);
+    document.removeEventListener('click', closeSuccess);
+    document.removeEventListener('keydown', closeSuccessOnButton);
   };
-  var succesButtonHandler = function (evt) {
-    if (evt.key === 'Escape') {
-      var succesElement = document.querySelector('.success');
-      succesElement.parentNode.removeChild(succesElement);
-      document.removeEventListener('keydown', succesButtonHandler);
-      document.removeEventListener('click', succesClickHandler);
-    }
+  var closeError = function () {
+    var errorElement = document.querySelector('.error');
+    errorElement.parentNode.removeChild(errorElement);
+    document.removeEventListener('keydown', closeErrorOnButton);
+    document.removeEventListener('click', closeErrorOffClick);
   };
-  var errorClickHandler = function (evt) {
+  var closeErrorOffClick = function (evt) {
     if (evt.target.className !== 'error__message') {
-      var errorElement = document.querySelector('.error');
-      errorElement.parentNode.removeChild(errorElement);
-      document.removeEventListener('click', errorClickHandler);
-      document.removeEventListener('keydown', errorButtonHandler);
+      closeError();
     }
   };
-  var errorButtonHandler = function (evt) {
+  var closeSuccessOnButton = function (evt) {
     if (evt.key === 'Escape') {
-      var errorElement = document.querySelector('.error');
-      errorElement.parentNode.removeChild(errorElement);
-      document.removeEventListener('keydown', errorButtonHandler);
-      document.removeEventListener('click', errorClickHandler);
+      evt.preventDefault();
+      closeSuccess();
     }
   };
-  var sucessHandler = function () {
-    window.form.formElement.classList.add('ad-form--disabled');
-    var allpinElements = document.querySelectorAll('.map__pin');
-    var successMessage = formTemplate.cloneNode(true);
+  var closeErrorOnButton = function (evt) {
+    if (evt.key === 'Escape') {
+      closeError();
+    }
+  };
+  var successHandler = function () {
+    var successMessage = successTemplate.cloneNode(true);
     mainElement.appendChild(successMessage);
-    for (var j = 0; j < window.form.fieldsetElements.length; j++) {
-      window.form.fieldsetElements[j].setAttribute('disabled', true);
-      window.map.mapElement.classList.add('map--faded');
-    }
-    for (var i = 1; i < allpinElements.length; i++) {
-      allpinElements[i].parentNode.removeChild(allpinElements[i]);
-    }
-    var isCardOpened = document.querySelector('.map__card');
-    if (isCardOpened) {
-      isCardOpened.parentNode.removeChild(isCardOpened);
-    }
-    document.addEventListener('click', succesClickHandler);
-    document.addEventListener('keydown', succesButtonHandler);
+    window.map.deactivateSite();
+    document.addEventListener('click', closeSuccess);
+    document.addEventListener('keydown', closeSuccessOnButton);
     formElement.reset();
     window.main.mainPinElement.style.top = MAIN_PIN_DEFAULT_Y + 'px';
     window.main.mainPinElement.style.left = MAIN_PIN_DEFAULT_X + 'px';
@@ -136,11 +124,11 @@
   var errorHandler = function () {
     var errorMessage = errorTemplate.cloneNode(true);
     mainElement.appendChild(errorMessage);
-    document.addEventListener('click', errorClickHandler);
-    document.addEventListener('keydown', errorButtonHandler);
+    document.addEventListener('click', closeError);
+    document.addEventListener('keydown', closeErrorOnButton);
   };
   formElement.addEventListener('submit', function (evt) {
-    window.backend.saveData(new FormData(formElement), sucessHandler, errorHandler);
+    window.backend.saveData(new FormData(formElement), successHandler, errorHandler);
     evt.preventDefault();
   });
   window.form = {
