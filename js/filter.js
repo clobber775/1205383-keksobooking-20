@@ -73,6 +73,7 @@
   };
 
   var feautersFilterElement = filterElement.querySelector('#housing-features');
+
   var filterByFeauters = function (array, limit) {
     var checkedFeaturesItems = feautersFilterElement.querySelectorAll('input:checked');
     var array5 = [];
@@ -83,16 +84,13 @@
           if (array5.length === limit) {
             break;
           }
-        } else {
-          array5 = [];
         }
       }
     }
     if (checkedFeaturesItems.length === 0) {
       return array;
-    } else {
-      return array5;
     }
+    return array5;
   };
   filterForm.addEventListener('change', function () {
     window.map.deletePins();
