@@ -1,7 +1,7 @@
 'use strict';
 (function () {
   var FIRST_OBJECT = 0;
-  var NUMBER_OF_OBJECTS = 8;
+  var NUMBER_OF_OBJECTS = 5;
   var TYPES = ['place', 'flat', 'house', 'bungalo'];
   var CHECKINS = ['12:00', '13:00', '14:00'];
   var FEAUTERS = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
