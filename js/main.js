@@ -15,6 +15,7 @@
       fillAddress(MAIN_PIN_WIDTH / 2, MAIN_PIN_HEIGHT + TAIL_HEIGHT);
       window.form.formElement.classList.remove('ad-form--disabled');
     }
+    mainPinElement.removeEventListener('mouseup', mainPinHandler);
   };
   mainPinElement.addEventListener('mouseup', mainPinHandler);
 
@@ -35,7 +36,7 @@
     bottom: window.map.mapElement.offsetHeight + window.map.mapElement.offsetTop,
     left: window.map.mapElement.offsetLeft
   };
-  mainPinElement.addEventListener('mousedown', function (evt) {
+  var mainPinDragHandler = function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -90,7 +91,8 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  });
+  };
+  mainPinElement.addEventListener('mousedown', mainPinDragHandler);
   window.main = {
     mainPinElement: mainPinElement,
     offersData: offersData,

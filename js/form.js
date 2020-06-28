@@ -115,6 +115,8 @@
     var successMessage = successTemplate.cloneNode(true);
     mainElement.appendChild(successMessage);
     window.map.deactivateSite();
+    window.map.deletePins();
+    window.map.closeCard();
     document.addEventListener('click', closeSuccess);
     document.addEventListener('keydown', closeSuccessOnButton);
     formElement.reset();
