@@ -5,55 +5,33 @@
   for (var j = 0; j < filterFields.length; j++) {
     filterFields[j].setAttribute('disabled', true);
   }
+  var arrayFiltration = function (array, element, key) {
+    var filteredArray = [];
+    if (element.value === 'any') {
+      return array;
+    }
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].offer[key].toString() === element.value) {
+        filteredArray.push(array[i]);
+        if (filteredArray.length === window.map.MAX_ELEMENTS) {
+          break;
+        }
+      }
+    }
+    return filteredArray;
+  };
   var filterForm = document.querySelector('.map__filters');
   var housingFilterElement = filterElement.querySelector('#housing-type');
-  var filterByType = function (array, limit) {
-    var filteredArray = [];
-    if (housingFilterElement.value === 'any') {
-      return array;
-    }
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].offer.type === housingFilterElement.value) {
-        filteredArray.push(array[i]);
-        if (filteredArray.length === limit) {
-          break;
-        }
-      }
-    }
-
-    return filteredArray;
+  var filterByType = function (array) {
+    return arrayFiltration(array, housingFilterElement, 'type');
   };
   var roomsFilterElement = filterElement.querySelector('#housing-rooms');
-  var filterByRooms = function (array, limit) {
-    var filteredArray = [];
-    if (roomsFilterElement.value === 'any') {
-      return array;
-    }
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].offer.rooms.toString() === roomsFilterElement.value) {
-        filteredArray.push(array[i]);
-        if (filteredArray.length === limit) {
-          break;
-        }
-      }
-    }
-    return filteredArray;
+  var filterByRooms = function (array) {
+    return arrayFiltration(array, roomsFilterElement, 'rooms');
   };
   var guestFilterElement = filterElement.querySelector('#housing-guests');
-  var filterByGuests = function (array, limit) {
-    var filteredArray = [];
-    if (guestFilterElement.value === 'any') {
-      return array;
-    }
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].offer.guests.toString() === guestFilterElement.value) {
-        filteredArray.push(array[i]);
-        if (filteredArray.length === limit) {
-          break;
-        }
-      }
-    }
-    return filteredArray;
+  var filterByGuests = function (array) {
+    return arrayFiltration(array, guestFilterElement, 'guests');
   };
   var priceValues = {
     any: function () {
@@ -70,7 +48,7 @@
     }
   };
   var priceFilterElement = filterElement.querySelector('#housing-price');
-  var filterByPrice = function (array, limit) {
+  var filterByPrice = function (array) {
     var filteredArray = [];
     if (priceFilterElement.value === 'any') {
       return array;
@@ -79,7 +57,7 @@
     for (var i = 0; i < array.length; i++) {
       if (filteredPrice(array[i].offer.price)) {
         filteredArray.push(array[i]);
-        if (filteredArray.length === limit) {
+        if (filteredArray.length === window.map.MAX_ELEMENTS) {
           break;
         }
       }
@@ -88,13 +66,13 @@
   };
 
   var feautersFilterElement = filterElement.querySelector('#housing-features');
-  var filterByFeauters = function (array, limit) {
+  var filterByFeauters = function (array) {
     var checkedFeaturesItems = Array.from(feautersFilterElement.querySelectorAll('input:checked'));
     var filteredArray = [];
     for (var i = 0; i < array.length; i++) {
       if (filtrationByFeatures(array[i])) {
         filteredArray.push(array[i]);
-        if (filteredArray.length === limit) {
+        if (filteredArray.length === window.map.MAX_ELEMENTS) {
           break;
         }
       }
@@ -110,13 +88,12 @@
       return item.offer.features.includes(element.value);
     });
   };
-  filterForm.addEventListener('change', function () {
+  filterForm.addEventListener('change', window.debounce(function () {
     window.map.deletePins();
     window.map.closeCard();
-    window.pin.renderPins(filterByType(filterByRooms(filterByGuests(filterByPrice(filterByFeauters(window.pinsArray, window.map.MAX_ELEMENTS), window.map.MAX_ELEMENTS), window.map.MAX_ELEMENTS), window.map.MAX_ELEMENTS), window.map.MAX_ELEMENTS));
-  });
+    window.pin.renderPins(filterByType(filterByRooms(filterByGuests(filterByPrice(filterByFeauters(window.pinsArray))))));
+  }));
   window.filter = {
     filterFields: filterFields
   };
-
 })();
