@@ -70,11 +70,19 @@
   };
 
   typeSelect.addEventListener('change', syncType);
-
-  document.querySelector('.ad-form').onchange = function (evt) {
-    this.timein.value = evt.target.value;
-    this.timeout.value = evt.target.value;
+  var timeInElemnt = document.querySelector('#timein');
+  var timeOutElemnt = document.querySelector('#timeout');
+  var onTimeChange = function (left, right) {
+    right.value = left.value;
   };
+
+  timeInElemnt.addEventListener('input', function () {
+    onTimeChange(timeInElemnt, timeOutElemnt);
+  });
+
+  timeOutElemnt.addEventListener('input', function () {
+    onTimeChange(timeInElemnt, timeOutElemnt);
+  });
   var successTemplate = document.querySelector('#success')
     .content
     .querySelector('.success');
