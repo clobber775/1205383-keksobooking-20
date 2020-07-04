@@ -12,13 +12,21 @@
       pinElement.querySelector('img').src = obj.author.avatar;
       pinElement.querySelector('img').alt = obj.offer.title;
       pinElement.style = 'left:' + (obj.location.x - PIN_WIDTH / 2) + 'px; top:' + (obj.location.y - PIN_HEIGHT) + 'px;';
-
-      pinElement.addEventListener('click', function () {
+      var pinHandler = function () {
+        var allPinElement = document.querySelectorAll('.map__pin');
+        allPinElement.forEach(function (it) {
+          it.classList.remove('.map__pin--active');
+        });
         window.renderCard(obj);
+        pinElement.classList.add('.map__pin--active');
+      };
+      pinElement.addEventListener('click', function () {
+        pinHandler();
       });
       pinElement.addEventListener('keydown', function (evt) {
-        if (evt.key === 'Enter') {
-          window.renderCard(obj);
+        if (evt.key === 'enter') {
+          evt.preventDefault();
+          pinHandler();
         }
       });
       pinContainer.appendChild(pinElement);

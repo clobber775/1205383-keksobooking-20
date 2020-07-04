@@ -52,7 +52,9 @@
     window.map.mapElement.addEventListener('keydown', function (evt) {
       if (evt.key === 'Escape') {
         var mapCardElement = document.querySelector('.map__card');
-        mapCardElement.parentNode.removeChild(mapCardElement);
+        if (mapCardElement) {
+          mapCardElement.parentNode.removeChild(mapCardElement);
+        }
       }
     });
   };
