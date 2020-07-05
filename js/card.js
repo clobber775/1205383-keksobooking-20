@@ -3,11 +3,11 @@
   var HOUSE_VARIANTS = {
     FLAT: {
       type: 'Квартира',
-      price: '0'
+      price: '1000'
     },
     BUNGALO: {
       type: 'Бунгало',
-      price: '1000'
+      price: '0'
     },
     HOUSE: {
       type: 'Дом',
