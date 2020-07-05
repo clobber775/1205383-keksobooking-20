@@ -57,11 +57,14 @@
     priceSelect.setAttribute('placeholder', window.card.HOUSE_VARIANTS[(typeSelect.value).toUpperCase()].price);
   };
   typeSelect.addEventListener('change', syncType);
+
   var timeInElement = document.querySelector('#timein');
   var timeOutElement = document.querySelector('#timeout');
+
   var onTimeChange = function (left, right) {
     right.value = left.value;
   };
+
 
   timeInElement.addEventListener('input', function () {
     onTimeChange(timeInElement, timeOutElement);
@@ -69,6 +72,7 @@
 
   timeOutElement.addEventListener('input', function () {
     onTimeChange(timeOutElement, timeInElement);
+
   });
   var successTemplate = document.querySelector('#success')
     .content
