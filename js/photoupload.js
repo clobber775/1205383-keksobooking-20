@@ -2,7 +2,9 @@
 
 (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-  var previewUploader = function (input, element) {
+
+  var uploadPreview = function (input, element) {
+
     var file = input.files[0];
     var fileName = file.name.toLowerCase();
 
@@ -23,7 +25,9 @@
   var avatarFileChooserElement = document.querySelector('.ad-form__field input[type=file]');
   var avatarPreviewElement = document.querySelector('.ad-form-header__preview img');
   avatarFileChooserElement.addEventListener('change', function () {
-    previewUploader(avatarFileChooserElement, avatarPreviewElement);
+
+    uploadPreview(avatarFileChooserElement, avatarPreviewElement);
+
   });
   var offerFileChooserElement = document.querySelector('.ad-form__upload input[type=file]');
   var offerPreviewElement = document.querySelector('.ad-form__photo');
@@ -32,6 +36,8 @@
   previewElementImage.style.height = '70px';
   offerPreviewElement.append(previewElementImage);
   offerFileChooserElement.addEventListener('change', function () {
-    previewUploader(offerFileChooserElement, previewElementImage);
+
+    uploadPreview(offerFileChooserElement, previewElementImage);
+
   });
 })();

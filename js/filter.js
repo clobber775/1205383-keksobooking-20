@@ -2,10 +2,10 @@
 (function () {
   var filterElement = document.querySelector('.map__filters-container');
   var filterFields = filterElement.querySelectorAll('select');
-  for (var j = 0; j < filterFields.length; j++) {
-    filterFields[j].setAttribute('disabled', true);
-  }
-  var arrayFiltration = function (array, element, key) {
+  filterFields.forEach(function (it) {
+    it.setAttribute('disabled', true);
+  });
+  var filtrateArray = function (array, element, key) {
     var filteredArray = [];
     if (element.value === 'any') {
       return array;
@@ -23,17 +23,17 @@
   var filterForm = document.querySelector('.map__filters');
   var housingFilterElement = filterElement.querySelector('#housing-type');
   var filterByType = function (array) {
-    return arrayFiltration(array, housingFilterElement, 'type');
+    return filtrateArray(array, housingFilterElement, 'type');
   };
   var roomsFilterElement = filterElement.querySelector('#housing-rooms');
   var filterByRooms = function (array) {
-    return arrayFiltration(array, roomsFilterElement, 'rooms');
+    return filtrateArray(array, roomsFilterElement, 'rooms');
   };
   var guestFilterElement = filterElement.querySelector('#housing-guests');
   var filterByGuests = function (array) {
-    return arrayFiltration(array, guestFilterElement, 'guests');
+    return filtrateArray(array, guestFilterElement, 'guests');
   };
-  var priceValues = {
+  var PriceValues = {
     any: function () {
       return true;
     },
@@ -53,7 +53,7 @@
     if (priceFilterElement.value === 'any') {
       return array;
     }
-    var filteredPrice = priceValues[priceFilterElement.value];
+    var filteredPrice = PriceValues[priceFilterElement.value];
     for (var i = 0; i < array.length; i++) {
       if (filteredPrice(array[i].offer.price)) {
         filteredArray.push(array[i]);
@@ -65,9 +65,9 @@
     return filteredArray;
   };
 
-  var feautersFilterElement = filterElement.querySelector('#housing-features');
-  var filterByFeauters = function (array) {
-    var checkedFeaturesItems = Array.from(feautersFilterElement.querySelectorAll('input:checked'));
+  var featuresFilterElement = filterElement.querySelector('#housing-features');
+  var filterByFeatures = function (array) {
+    var checkedFeaturesItems = Array.from(featuresFilterElement.querySelectorAll('input:checked'));
     var filteredArray = [];
     for (var i = 0; i < array.length; i++) {
       if (filtrationByFeatures(array[i])) {
@@ -83,7 +83,7 @@
     return filteredArray;
   };
   var filtrationByFeatures = function (item) {
-    var checkedFeaturesItems = feautersFilterElement.querySelectorAll('input:checked');
+    var checkedFeaturesItems = featuresFilterElement.querySelectorAll('input:checked');
     return Array.from(checkedFeaturesItems).every(function (element) {
       return item.offer.features.includes(element.value);
     });
@@ -91,9 +91,9 @@
   filterForm.addEventListener('change', window.debounce(function () {
     window.map.deletePins();
     window.map.closeCard();
-    window.pin.renderPins(filterByType(filterByRooms(filterByGuests(filterByPrice(filterByFeauters(window.pinsArray))))));
+    window.pin.renderPins(filterByType(filterByRooms(filterByGuests(filterByPrice(filterByFeatures(window.pinsArray))))));
   }));
   window.filter = {
-    filterFields: filterFields
+    filterFields: filterFields,
   };
 })();

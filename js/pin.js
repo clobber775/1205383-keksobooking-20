@@ -12,15 +12,25 @@
       pinElement.querySelector('img').src = obj.author.avatar;
       pinElement.querySelector('img').alt = obj.offer.title;
       pinElement.style = 'left:' + (obj.location.x - PIN_WIDTH / 2) + 'px; top:' + (obj.location.y - PIN_HEIGHT) + 'px;';
-
-      pinElement.addEventListener('click', function () {
+      var activatePin = function () {
+        var allPinElement = document.querySelectorAll('.map__pin');
+        allPinElement.forEach(function (it) {
+          it.classList.remove('.map__pin--active');
+        });
         window.renderCard(obj);
-      });
-      pinElement.addEventListener('keydown', function (evt) {
-        if (evt.key === 'Enter') {
-          window.renderCard(obj);
+        pinElement.classList.add('.map__pin--active');
+      };
+      var pinClickHandler = function () {
+        activatePin();
+      };
+      var pinButtonHandler = function (evt) {
+        if (evt.key === 'enter') {
+          evt.preventDefault();
+          activatePin();
         }
-      });
+      };
+      pinElement.addEventListener('click', pinClickHandler);
+      pinElement.addEventListener('keydown', pinButtonHandler);
       pinContainer.appendChild(pinElement);
     },
     renderPins: function (data) {

@@ -4,20 +4,21 @@
   var MAIN_PIN_HEIGHT = 65;
   var TAIL_HEIGHT = 22;
   var addressFieldElement = document.querySelector('#address');
-  var offersData = window.data.createArray([]);
+
   var mainPinElement = document.querySelector('.map__pin--main');
   var fillAddress = function (posX, posY) {
     addressFieldElement.value = (mainPinElement.offsetLeft + posX + ',' + (mainPinElement.offsetTop + posY));
   };
-  var mainPinHandler = function (evt) {
+  var mainPinClickHandler = function (evt) {
     if (evt.button === 0) {
       window.map.activateSite();
       fillAddress(MAIN_PIN_WIDTH / 2, MAIN_PIN_HEIGHT + TAIL_HEIGHT);
       window.form.formElement.classList.remove('ad-form--disabled');
     }
-    mainPinElement.removeEventListener('mouseup', mainPinHandler);
+    mainPinElement.removeEventListener('mouseup', mainPinClickHandler);
+    mainPinElement.removeEventListener('keydown', mainPinButtonHandler);
   };
-  mainPinElement.addEventListener('mouseup', mainPinHandler);
+  mainPinElement.addEventListener('mouseup', mainPinClickHandler);
 
   var mainPinButtonHandler = function (evt) {
     if (evt.key === 'Enter') {
@@ -62,12 +63,12 @@
       };
       if (moveEvt.pageX >= limits.right) {
         mainPinElement.style.left = window.map.mapElement.offsetWidth - MAIN_PIN_WIDTH / 2 + 'px';
-      } else if (moveEvt.pageX <= limits.left) {
+      } if (moveEvt.pageX <= limits.left) {
         mainPinElement.style.left = limits.top - MAIN_PIN_WIDTH / 2 + 'px';
       }
       if (moveEvt.pageY >= limits.bottom) {
         mainPinElement.style.top = limits.bottom - MAIN_PIN_WIDTH - TAIL_HEIGHT + 'px';
-      } else if (moveEvt.pageY <= limits.top) {
+      } if (moveEvt.pageY <= limits.top) {
         mainPinElement.style.top = limits.top + 'px';
       }
       mainPinElement.style.top = (mainPinElement.offsetTop - shift.y) + 'px';
@@ -94,8 +95,10 @@
   };
   mainPinElement.addEventListener('mousedown', mainPinDragHandler);
   window.main = {
+    mainPinButtonHandler: mainPinButtonHandler,
+    mainPinClickHandler: mainPinClickHandler,
+    fillAddress: fillAddress,
     mainPinElement: mainPinElement,
-    offersData: offersData,
     MAIN_PIN_WIDTH: MAIN_PIN_WIDTH,
     MAIN_PIN_HEIGHT: MAIN_PIN_HEIGHT,
     TAIL_HEIGHT: TAIL_HEIGHT,
