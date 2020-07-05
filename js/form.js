@@ -124,6 +124,9 @@
     document.addEventListener('keydown', closeSuccessOnButton);
     window.main.mainPinElement.addEventListener('keydown', window.main.mainPinButtonHandler);
     window.main.mainPinElement.addEventListener('click', window.main.mainPinClickHandler);
+    window.main.mainPinElement.style.top = MAIN_PIN_DEFAULT_Y + 'px';
+    window.main.mainPinElement.style.left = MAIN_PIN_DEFAULT_X + 'px';
+    window.main.fillAddress(window.main.MAIN_PIN_WIDTH / 2, window.main.MAIN_PIN_HEIGHT / 2);
   };
   var errorHandler = function () {
     var errorMessage = errorTemplate.cloneNode(true);
