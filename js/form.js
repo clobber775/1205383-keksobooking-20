@@ -19,10 +19,9 @@
   var fieldsetElements = formElement.querySelectorAll('fieldset');
   var roomsSelect = document.querySelector('#room_number');
   var capacitySelect = document.querySelector('#capacity');
-  for (var j = 0; j < fieldsetElements.length; j++) {
-    fieldsetElements[j].setAttribute('disabled', true);
-  }
-
+  fieldsetElements.forEach(function (it) {
+    it.setAttribute('disabled', true);
+  });
 
   var validateRoomsGuests = function () {
     roomsSelect.setCustomValidity('');
@@ -53,24 +52,9 @@
 
   var typeSelect = document.querySelector('#type');
   var priceSelect = document.querySelector('#price');
-
   var syncType = function () {
-    if (typeSelect.value === 'bungalo') {
-      priceSelect.setAttribute('min', '0');
-      priceSelect.setAttribute('placeholder', '0');
-    }
-    if (typeSelect.value === 'flat') {
-      priceSelect.setAttribute('min', '1000');
-      priceSelect.setAttribute('placeholder', '1000');
-    }
-    if (typeSelect.value === 'house') {
-      priceSelect.setAttribute('min', '5000');
-      priceSelect.setAttribute('placeholder', '5000');
-    }
-    if (typeSelect.value === 'palace') {
-      priceSelect.setAttribute('min', '10000');
-      priceSelect.setAttribute('placeholder', '10000');
-    }
+    priceSelect.setAttribute('min', window.card.HOUSE_VARIANTS[(typeSelect.value).toUpperCase()].price);
+    priceSelect.setAttribute('placeholder', window.card.HOUSE_VARIANTS[(typeSelect.value).toUpperCase()].price);
   };
   typeSelect.addEventListener('change', syncType);
   var timeInElement = document.querySelector('#timein');
@@ -84,7 +68,7 @@
   });
 
   timeOutElement.addEventListener('input', function () {
-    onTimeChange(timeInElement, timeOutElement);
+    onTimeChange(timeOutElement, timeInElement);
   });
   var successTemplate = document.querySelector('#success')
     .content

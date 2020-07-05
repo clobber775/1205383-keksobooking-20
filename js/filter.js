@@ -2,9 +2,9 @@
 (function () {
   var filterElement = document.querySelector('.map__filters-container');
   var filterFields = filterElement.querySelectorAll('select');
-  for (var j = 0; j < filterFields.length; j++) {
-    filterFields[j].setAttribute('disabled', true);
-  }
+  filterFields.forEach(function (it) {
+    it.setAttribute('disabled', true);
+  });
   var filtrateArray = function (array, element, key) {
     var filteredArray = [];
     if (element.value === 'any') {
@@ -33,7 +33,7 @@
   var filterByGuests = function (array) {
     return filtrateArray(array, guestFilterElement, 'guests');
   };
-  var priceValues = {
+  var PriceValues = {
     any: function () {
       return true;
     },
@@ -53,7 +53,7 @@
     if (priceFilterElement.value === 'any') {
       return array;
     }
-    var filteredPrice = priceValues[priceFilterElement.value];
+    var filteredPrice = PriceValues[priceFilterElement.value];
     for (var i = 0; i < array.length; i++) {
       if (filteredPrice(array[i].offer.price)) {
         filteredArray.push(array[i]);

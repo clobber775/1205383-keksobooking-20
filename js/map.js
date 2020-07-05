@@ -4,14 +4,14 @@
   var mapElement = document.querySelector('.map');
   window.map = {
     activateSite: function () {
-      for (var j = 0; j < window.form.fieldsetElements.length; j++) {
-        window.form.fieldsetElements[j].removeAttribute('disabled');
+      window.form.fieldsetElements.forEach(function (it) {
+        it.removeAttribute('disabled');
         window.map.mapElement.classList.remove('map--faded');
-      }
+      });
       window.backend.loadData(window.map.loadPins);
-      for (var h = 0; h < window.filter.filterFields.length; h++) {
-        window.filter.filterFields[h].removeAttribute('disabled');
-      }
+      window.filter.filterFields.forEach(function (it) {
+        it.removeAttribute('disabled');
+      });
     },
     loadPins: function (data) {
       window.pinsArray = data;
@@ -20,13 +20,13 @@
 
     deactivateSite: function () {
       window.form.formElement.classList.add('ad-form--disabled');
-      for (var j = 0; j < window.form.fieldsetElements.length; j++) {
-        window.form.fieldsetElements[j].setAttribute('disabled', true);
+      window.form.fieldsetElements.forEach(function (it) {
+        it.setAttribute('disabled', true);
         window.map.mapElement.classList.add('map--faded');
-      }
-      for (var k = 0; k < window.filter.filterFields.length; k++) {
-        window.filter.filterFields[k].setAttribute('disabled', true);
-      }
+      });
+      window.filter.filterFields.forEach(function (it) {
+        it.setAttribute('disabled', true);
+      });
     },
     closeCard: function () {
       var isCardOpened = document.querySelector('.map__card');
