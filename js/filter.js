@@ -88,7 +88,7 @@
       return item.offer.features.includes(element.value);
     });
   };
-  filterForm.addEventListener('change', window.debounce(function () {
+  filterForm.addEventListener('change', window.debounce.debouncePins(function () {
     window.map.deletePins();
     window.map.closeCard();
     window.pin.renderPins(filterByType(filterByRooms(filterByGuests(filterByPrice(filterByFeatures(window.pinsArray))))));

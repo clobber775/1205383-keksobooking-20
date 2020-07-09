@@ -2,7 +2,7 @@
 (function () {
   var DEBOUNCE_INTERVAL = 500;
 
-  window.debounce = function (cb) {
+  var debouncePins = function (cb) {
     var lastTimeout = null;
 
     return function () {
@@ -15,4 +15,7 @@
       }, DEBOUNCE_INTERVAL);
     };
   };
+  window.debounce = {
+    debouncePins: debouncePins
+  }
 })();
