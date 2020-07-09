@@ -17,5 +17,5 @@
   };
   window.debounce = {
     debouncePins: debouncePins
-  }
+  };
 })();
