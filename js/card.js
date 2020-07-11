@@ -82,7 +82,7 @@
       smallPinCloseElement.removeEventListener('click', pinClickHandler);
     };
     var pinEscapeButtonHandler = function (evt) {
-      if (evt.key === window.main.KEYCODES['Escape']) {
+      if (evt.key === window.main.KeyCodes['ESCAPE']) {
         closeOfferCard();
         document.removeEventListener('keydown', pinEscapeButtonHandler);
       }

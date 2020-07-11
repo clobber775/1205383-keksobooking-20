@@ -100,13 +100,13 @@
     }
   };
   var successCloseOnEscapeButtonHandler = function (evt) {
-    if (evt.key === window.main.KEYCODES['Escape']) {
+    if (evt.key === window.main.KeyCodes['ESCAPE']) {
       evt.preventDefault();
       successCloseClickHandler();
     }
   };
   var errorCloseOnEscapeHandler = function (evt) {
-    if (evt.key === window.main.KEYCODES['Escape']) {
+    if (evt.key === window.main.KeyCodes['ESCAPE']) {
       errorCloseClickHandler();
     }
   };
@@ -148,7 +148,7 @@
     window.main.fillAddress(window.main.MAIN_PIN_WIDTH / 2, window.main.MAIN_PIN_HEIGHT / 2);
   });
   resetButton.addEventListener('keydown', function (evt) {
-    if (evt.key === window.main.KEYCODES['Enter']) {
+    if (evt.key === window.main.KeyCodes['ENTER']) {
       evt.preventDefault();
       resetPage();
       window.main.fillAddress(window.main.MAIN_PIN_WIDTH / 2, window.main.MAIN_PIN_HEIGHT / 2);

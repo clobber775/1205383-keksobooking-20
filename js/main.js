@@ -1,22 +1,22 @@
 'use strict';
 (function () {
-  var MAIN_PIN_WIDTH = 67;
+  var MAIN_PIN_WIDTH = 66;
   var MAIN_PIN_HEIGHT = 65;
   var TAIL_HEIGHT = 22;
   var MAIN_PIN_TOP_LIMIT = 130;
   var MAIN_PIN_BOTTOM_LIMIT = 630;
   var addressFieldElement = document.querySelector('#address');
-  var KEYCODES = {
-    Escape: 'Escape',
-    Enter: 'Enter',
-    MouseLeftButtonClick: 0,
+  var KeyCodes = {
+    ESCAPE: 'Escape',
+    ENTER: 'Enter',
+    MOUSELEFTBUTTONCLICK: 0,
   };
   var mainPinElement = document.querySelector('.map__pin--main');
   var fillAddress = function (posX, posY) {
     addressFieldElement.value = (Math.floor(mainPinElement.offsetLeft + posX) + ',' + Math.floor(mainPinElement.offsetTop + posY));
   };
   var mainPinClickHandler = function (evt) {
-    if (evt.button === KEYCODES['MouseLeftButtonClick']) {
+    if (evt.button === KeyCodes['MOUSELEFTBUTTONCLICK']) {
       window.map.activateSite();
       fillAddress(MAIN_PIN_WIDTH / 2, MAIN_PIN_HEIGHT + TAIL_HEIGHT);
       window.form.formElement.classList.remove('ad-form--disabled');
@@ -27,7 +27,7 @@
   mainPinElement.addEventListener('mouseup', mainPinClickHandler);
 
   var mainPinButtonHandler = function (evt) {
-    if (evt.key === KEYCODES['Enter']) {
+    if (evt.key === KeyCodes['ENTER']) {
       window.map.activateSite();
       fillAddress(MAIN_PIN_WIDTH / 2, MAIN_PIN_HEIGHT + TAIL_HEIGHT);
       window.form.formElement.classList.remove('ad-form--disabled');
@@ -43,7 +43,7 @@
     top: MAIN_PIN_TOP_LIMIT - MAIN_PIN_HEIGHT - TAIL_HEIGHT,
     right: window.map.mapElement.offsetWidth - (MAIN_PIN_WIDTH / 2),
     bottom: MAIN_PIN_BOTTOM_LIMIT - MAIN_PIN_HEIGHT - TAIL_HEIGHT,
-    left: -(MAIN_PIN_WIDTH / 2)
+    left: Math.floor(-(MAIN_PIN_WIDTH / 2))
   };
   var mainPinDragHandler = function (evt) {
     evt.preventDefault();
@@ -80,7 +80,7 @@
       upEvt.preventDefault();
       document.removeEventListener('mousemove', mouseMoveHandler);
       document.removeEventListener('mouseup', mouseUpHandler);
-      if (evt.button === KEYCODES['MouseLeftButtonClick']) {
+      if (evt.button === KeyCodes['MOUSELEFTBUTTONCLICK']) {
         if (window.map.mapElement.classList.contains('map--faded')) {
           window.map.activateSite();
         }
@@ -110,7 +110,7 @@
     MAIN_PIN_WIDTH: MAIN_PIN_WIDTH,
     MAIN_PIN_HEIGHT: MAIN_PIN_HEIGHT,
     TAIL_HEIGHT: TAIL_HEIGHT,
-    KEYCODES: KEYCODES
+    KeyCodes: KeyCodes
   };
 })();
 
