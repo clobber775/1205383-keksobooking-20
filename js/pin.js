@@ -23,7 +23,7 @@
       activatePin();
     };
     var pinButtonHandler = function (evt) {
-      if (evt.key === 'enter') {
+      if (evt.key === 'Enter') {
         evt.preventDefault();
         activatePin();
       }

@@ -18,21 +18,22 @@
       price: '10000'
     }
   };
-  var featuresTemplate = document.querySelector('#card')
+  var cardTemplate = document.querySelector('#card');
+  var featuresTemplate = cardTemplate
     .content
     .querySelector('.popup__features li');
-  var cardTemplate = document.querySelector('#card')
+  var mapCardTemplate = cardTemplate
     .content
     .querySelector('.map__card');
   var isCardOpened = document.querySelector('.map__card');
-  var cardElement = isCardOpened ? isCardOpened : cardTemplate.cloneNode(true);
+  var cardElement = isCardOpened ? isCardOpened : mapCardTemplate.cloneNode(true);
   window.renderCard = function (obj) {
     if (!isCardOpened) {
       window.map.mapElement.appendChild(cardElement);
     }
     var photoElement = document.querySelector('.popup__photos');
     var photoArray = obj.offer.photos;
-    var photoTemplate = document.querySelector('#card')
+    var photoTemplate = cardTemplate
       .content
       .querySelector('.popup__photo');
 
@@ -81,7 +82,7 @@
       smallPinCloseElement.removeEventListener('click', pinClickHandler);
     };
     var pinEscapeButtonHandler = function (evt) {
-      if (evt.key === window.main.KEYCODES['escape']) {
+      if (evt.key === window.main.KEYCODES['Escape']) {
         closeOfferCard();
         document.removeEventListener('keydown', pinEscapeButtonHandler);
       }

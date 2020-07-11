@@ -100,13 +100,13 @@
     }
   };
   var successCloseOnEscapeButtonHandler = function (evt) {
-    if (evt.key === window.main.KEYCODES['escape']) {
+    if (evt.key === window.main.KEYCODES['Escape']) {
       evt.preventDefault();
       successCloseClickHandler();
     }
   };
   var errorCloseOnEscapeHandler = function (evt) {
-    if (evt.key === window.main.KEYCODES['escape']) {
+    if (evt.key === window.main.KEYCODES['Escape']) {
       errorCloseClickHandler();
     }
   };
@@ -141,10 +141,6 @@
     window.backend.saveData(new FormData(formElement), successHandler, errorHandler);
     evt.preventDefault();
   });
-  window.form = {
-    fieldsetElements: fieldsetElements,
-    formElement: formElement
-  };
   var resetButton = document.querySelector('.ad-form__reset');
   resetButton.addEventListener('click', function (evt) {
     evt.preventDefault();
@@ -152,10 +148,14 @@
     window.main.fillAddress(window.main.MAIN_PIN_WIDTH / 2, window.main.MAIN_PIN_HEIGHT / 2);
   });
   resetButton.addEventListener('keydown', function (evt) {
-    if (evt.key === window.main.KEYCODES['enter']) {
+    if (evt.key === window.main.KEYCODES['Enter']) {
       evt.preventDefault();
       resetPage();
       window.main.fillAddress(window.main.MAIN_PIN_WIDTH / 2, window.main.MAIN_PIN_HEIGHT / 2);
     }
   });
+  window.form = {
+    fieldsetElements: fieldsetElements,
+    formElement: formElement
+  };
 })();
